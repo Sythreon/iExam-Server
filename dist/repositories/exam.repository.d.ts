@@ -6,6 +6,6 @@ export declare class ExamRepository {
     constructor();
     static Start(): Promise<IExamResponse<ExamOngoingResponse>>;
     static Answer(data: ExamAnswerRequest): Promise<IExamResponse<ExamOngoingResponse | ExamCompletedResponse>>;
-    static Continue(session: Session, data: ExamAnswerRequest): Promise<IExamResponse<ExamOngoingResponse>>;
-    static Complete(session: Session, data: ExamAnswerRequest): Promise<IExamResponse<ExamCompletedResponse>>;
+    static Continue(session: Session): Promise<IExamResponse<ExamOngoingResponse>>;
+    static Complete(session: Session): Promise<IExamResponse<ExamCompletedResponse>>;
 }

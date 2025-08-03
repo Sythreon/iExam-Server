@@ -15,6 +15,8 @@ export class QuestionController {
     @Post('/create')
     @ApiOperation({ summary: "Create a question." })
     async CreateQuestion(@Body() request: CreateQuestionRequest, @Res() res: Response) {
+        request = Mapper.map(request, CreateQuestionRequest);
+
         const response = await QuestionRepository.CreateQuestion(request);
         if (response.success) response.data = Mapper.map(response.data, Question);
 
@@ -49,6 +51,8 @@ export class QuestionController {
     @ApiOperation({ summary: "Update a question." })
     @ApiBody({ type: UpdateQuestionRequest })
     async UpdateQuestion(@Body() request: UpdateQuestionRequest, @Res() res: Response) {
+        request = Mapper.map(request, UpdateQuestionRequest);
+
         const response = await QuestionRepository.UpdateQuestion(request);
         return IExamResponse.Send(response, res);
     }

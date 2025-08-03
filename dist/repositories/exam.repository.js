@@ -19,6 +19,7 @@ const exam_helper_1 = require("../helpers/exam.helper");
 const answer_repository_1 = require("./answer.repository");
 const question_database_1 = require("../data/database/question.database");
 const exam_enums_1 = require("../constants/enums/exam.enums");
+const session_enums_1 = require("../constants/enums/session.enums");
 let ExamRepository = class ExamRepository {
     constructor() {
     }
@@ -42,18 +43,21 @@ let ExamRepository = class ExamRepository {
         const session = await session_database_1.SessionDataAgent.Find({ sessionId: data.sessionId });
         if (!session)
             return response_helper_1.IExamResponse.Failure({ error: "Session not found." });
-        if (session.progress === session.numberOfQuestions)
-            return this.Complete(session, data);
-        else
-            return this.Continue(session, data);
-    }
-    static async Continue(session, data) {
+        if (session.status === "COMPLETED")
+            return response_helper_1.IExamResponse.Failure({ error: "Session has already been completed." });
         const currentQuestion = await question_database_1.QuestionDataAgent.Find({ questionId: data.questionId });
         if (!currentQuestion)
             return response_helper_1.IExamResponse.Failure({ error: "Question not found." });
         session.progress += 1;
+        session.status = session_enums_1.SessionStatusEnum.ONGOING;
         await answer_repository_1.AnswerRepository.CreateAnswer(data);
         await session_repository_1.SessionRepository.UpdateSession(session);
+        if (session.progress === session.numberOfQuestions)
+            return this.Complete(session);
+        else
+            return this.Continue(session);
+    }
+    static async Continue(session) {
         const questions = await question_repository_1.QuestionRepository.GetQuestions({ page: 1, pageSize: 10 });
         const { question, choices } = exam_helper_1.ExamHelper.getQuestion(session, questions.data);
         const response = {
@@ -65,19 +69,14 @@ let ExamRepository = class ExamRepository {
         };
         return response_helper_1.IExamResponse.Delete({ data: response, message: "Answer recorded successfully." });
     }
-    static async Complete(session, data) {
-        const currentQuestion = await question_database_1.QuestionDataAgent.Find({ questionId: data.questionId });
-        if (!currentQuestion)
-            return response_helper_1.IExamResponse.Failure({ error: "Question not found." });
-        session.progress += 1;
-        await answer_repository_1.AnswerRepository.CreateAnswer(data);
-        await session_repository_1.SessionRepository.UpdateSession(session);
+    static async Complete(session) {
         const answers = await answer_repository_1.AnswerRepository.GetAnswers({
             sessionId: session.sessionId,
             page: 1,
             pageSize: 10
         });
         const { finalScore, remark } = exam_helper_1.ExamHelper.gradeAnswers(session, answers.data);
+        await session_repository_1.SessionRepository.CompleteSession(session.sessionId, finalScore);
         const response = {
             sessionId: session.sessionId,
             finalScore: `${finalScore}%`,

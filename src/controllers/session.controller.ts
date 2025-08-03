@@ -15,6 +15,8 @@ export class SessionController {
     @Post('/create')
     @ApiOperation({ summary: "Create a session." })
     async CreateSession(@Body() request: CreateSessionRequest, @Res() res: Response) {
+        request = Mapper.map(request, CreateSessionRequest);
+
         const response = await SessionRepository.CreateSession(request);
         if (response.success) response.data = Mapper.map(response.data, Session);
 
@@ -49,6 +51,8 @@ export class SessionController {
     @ApiOperation({ summary: "Update a session." })
     @ApiBody({ type: UpdateSessionRequest })
     async UpdateSession(@Body() request: UpdateSessionRequest, @Res() res: Response) {
+        request = Mapper.map(request, UpdateSessionRequest);
+
         const response = await SessionRepository.UpdateSession(request);
         return IExamResponse.Send(response, res);
     }

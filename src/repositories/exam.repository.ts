@@ -13,14 +13,13 @@ import { ExamAnswerRequest } from 'src/constants/requests/exam.requests';
 import { AnswerRepository } from './answer.repository';
 import { QuestionDataAgent } from 'src/data/database/question.database';
 import { ExamResultEnum } from 'src/constants/enums/exam.enums';
+import { SessionStatusEnum } from 'src/constants/enums/session.enums';
 
 @Injectable()
 export class ExamRepository {
 
     constructor() {
     }
-
-
 
     static async Start(): Promise<IExamResponse<ExamOngoingResponse>> {
         const newSession = await SessionRepository.CreateSession({
@@ -46,20 +45,22 @@ export class ExamRepository {
     static async Answer(data: ExamAnswerRequest): Promise<IExamResponse<ExamOngoingResponse | ExamCompletedResponse>> {
         const session = await SessionDataAgent.Find({ sessionId: data.sessionId });
         if (!session) return IExamResponse.Failure({ error: "Session not found." });
+        if (session.status === "COMPLETED") return IExamResponse.Failure({ error: "Session has already been completed." });
 
-        if (session.progress === session.numberOfQuestions) return this.Complete(session, data);
-        else return this.Continue(session, data);
-    }
-
-    static async Continue(session: Session, data: ExamAnswerRequest): Promise<IExamResponse<ExamOngoingResponse>> {
         const currentQuestion = await QuestionDataAgent.Find({ questionId: data.questionId });
         if (!currentQuestion) return IExamResponse.Failure({ error: "Question not found." });
 
         session.progress += 1;
+        session.status = SessionStatusEnum.ONGOING;
 
         await AnswerRepository.CreateAnswer(data);
         await SessionRepository.UpdateSession(session);
 
+        if (session.progress === session.numberOfQuestions) return this.Complete(session);
+        else return this.Continue(session);
+    }
+
+    static async Continue(session: Session): Promise<IExamResponse<ExamOngoingResponse>> {
         const questions = await QuestionRepository.GetQuestions({ page: 1, pageSize: 10 });
 
         const { question, choices } = ExamHelper.getQuestion(session, questions.data);
@@ -75,15 +76,7 @@ export class ExamRepository {
         return IExamResponse.Delete({ data: response, message: "Answer recorded successfully." });
     }
 
-    static async Complete(session: Session, data: ExamAnswerRequest): Promise<IExamResponse<ExamCompletedResponse>> {
-        const currentQuestion = await QuestionDataAgent.Find({ questionId: data.questionId });
-        if (!currentQuestion) return IExamResponse.Failure({ error: "Question not found." });
-
-        session.progress += 1;
-
-        await AnswerRepository.CreateAnswer(data);
-        await SessionRepository.UpdateSession(session);
-
+    static async Complete(session: Session): Promise<IExamResponse<ExamCompletedResponse>> {
         const answers = await AnswerRepository.GetAnswers({
             sessionId: session.sessionId,
             page: 1,
@@ -91,6 +84,8 @@ export class ExamRepository {
         });
 
         const { finalScore, remark } = ExamHelper.gradeAnswers(session, answers.data);
+
+        await SessionRepository.CompleteSession(session.sessionId, finalScore);
 
         const response: ExamCompletedResponse = {
             sessionId: session.sessionId,

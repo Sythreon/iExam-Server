@@ -11,7 +11,7 @@ async function bootstrap() {
     app.useGlobalFilters(new exception_middleware_1.ExceptionMiddleware());
     app.enableCors();
     const config = new swagger_1.DocumentBuilder()
-        .setTitle('iExam Server')
+        .setTitle('iExam-Server')
         .setDescription('iExam Server APIs')
         .setVersion('v1')
         .build();

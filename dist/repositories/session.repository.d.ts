@@ -8,4 +8,5 @@ export declare class SessionRepository {
     static DeleteSession(sessionId: string): Promise<IExamResponse<null>>;
     static GetSessions(filters: GetSessionsRequest): Promise<IExamResponse<Session[]>>;
     static FindSession(sessionId: string): Promise<IExamResponse<Session>>;
+    static CompleteSession(sessionId: string, finalScore: number): Promise<null>;
 }

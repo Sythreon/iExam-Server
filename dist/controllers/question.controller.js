@@ -25,6 +25,7 @@ const question_entity_1 = require("../constants/entities/question.entity");
 let QuestionController = class QuestionController {
     constructor() { }
     async CreateQuestion(request, res) {
+        request = mapper_util_1.Mapper.map(request, question_requests_1.CreateQuestionRequest);
         const response = await question_repository_1.QuestionRepository.CreateQuestion(request);
         if (response.success)
             response.data = mapper_util_1.Mapper.map(response.data, question_entity_1.Question);
@@ -44,6 +45,7 @@ let QuestionController = class QuestionController {
         return response_helper_1.IExamResponse.Send(response, res);
     }
     async UpdateQuestion(request, res) {
+        request = mapper_util_1.Mapper.map(request, question_requests_1.UpdateQuestionRequest);
         const response = await question_repository_1.QuestionRepository.UpdateQuestion(request);
         return response_helper_1.IExamResponse.Send(response, res);
     }

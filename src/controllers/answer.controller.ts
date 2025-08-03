@@ -15,6 +15,8 @@ export class AnswerController {
     @Post('/create')
     @ApiOperation({ summary: "Create a answer." })
     async CreateAnswer(@Body() request: CreateAnswerRequest, @Res() res: Response) {
+        request = Mapper.map(request, CreateAnswerRequest);
+
         const response = await AnswerRepository.CreateAnswer(request);
         if (response.success) response.data = Mapper.map(response.data, Answer);
 
@@ -49,6 +51,8 @@ export class AnswerController {
     @ApiOperation({ summary: "Update a answer." })
     @ApiBody({ type: UpdateAnswerRequest })
     async UpdateAnswer(@Body() request: UpdateAnswerRequest, @Res() res: Response) {
+        request = Mapper.map(request, UpdateAnswerRequest);
+
         const response = await AnswerRepository.UpdateAnswer(request);
         return IExamResponse.Send(response, res);
     }

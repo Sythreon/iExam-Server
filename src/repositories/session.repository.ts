@@ -5,6 +5,7 @@ import { CreateSessionRequest, GetSessionsRequest, UpdateSessionRequest } from '
 import { IExamResponse } from '../helpers/response.helper';
 import { Mapper } from '../utilities/mapper.util';
 import { SessionHelper } from 'src/helpers/session.helper';
+import { SessionStatusEnum } from 'src/constants/enums/session.enums';
 
 @Injectable()
 export class SessionRepository {
@@ -58,5 +59,10 @@ export class SessionRepository {
         if (!session) return IExamResponse.Failure({ error: "Session not found." });
 
         return IExamResponse.Success({ data: session, message: "Session fetched successfully." });
+    }
+
+    static async CompleteSession(sessionId: string, finalScore: number): Promise<null> {
+        await SessionDataAgent.Update({ session: sessionId }, { finalScore, status: SessionStatusEnum.COMPLETED });
+        return null;
     }
 }

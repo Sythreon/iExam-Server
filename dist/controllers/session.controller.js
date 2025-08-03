@@ -25,6 +25,7 @@ const session_entity_1 = require("../constants/entities/session.entity");
 let SessionController = class SessionController {
     constructor() { }
     async CreateSession(request, res) {
+        request = mapper_util_1.Mapper.map(request, session_requests_1.CreateSessionRequest);
         const response = await session_repository_1.SessionRepository.CreateSession(request);
         if (response.success)
             response.data = mapper_util_1.Mapper.map(response.data, session_entity_1.Session);
@@ -44,6 +45,7 @@ let SessionController = class SessionController {
         return response_helper_1.IExamResponse.Send(response, res);
     }
     async UpdateSession(request, res) {
+        request = mapper_util_1.Mapper.map(request, session_requests_1.UpdateSessionRequest);
         const response = await session_repository_1.SessionRepository.UpdateSession(request);
         return response_helper_1.IExamResponse.Send(response, res);
     }
