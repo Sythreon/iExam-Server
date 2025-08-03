@@ -8,7 +8,7 @@ export class Question {
     content: string;
 
     @Expose()
-    correctAnswer: number;
+    correctAnswer: string;
 
     @Expose()
     options: string[];

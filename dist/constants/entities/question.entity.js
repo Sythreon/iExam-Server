@@ -24,7 +24,7 @@ __decorate([
 ], Question.prototype, "content", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], Question.prototype, "correctAnswer", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),

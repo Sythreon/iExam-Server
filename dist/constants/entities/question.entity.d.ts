@@ -1,7 +1,7 @@
 export declare class Question {
     questionId: string;
     content: string;
-    correctAnswer: number;
+    correctAnswer: string;
     options: string[];
     dateCreated: number;
     isDeleted: boolean;
