@@ -4,12 +4,8 @@ import { PaginatedRequest } from '../models/pagination.models';
 
 export class CreateExceptionRequest {
     @Expose()
-    @ApiProperty({ example: "1234567" })
-    sessionId: string;
-
-    @Expose()
-    @ApiProperty({ example: 1234567890 })
-    date: number;
+    @ApiProperty({ example: "03-05-2001" })
+    date: string;
 
     @Expose()
     @ApiProperty({ example: "POST" })
@@ -26,6 +22,10 @@ export class CreateExceptionRequest {
     @Expose()
     @ApiProperty({ example: "Failed to create session." })
     message?: string;
+
+    @Expose()
+    @ApiProperty({ example: "{ sessionId: '1234567' }" })
+    metadata?: string;
 }
 
 export class GetExceptionsRequest extends PaginatedRequest {

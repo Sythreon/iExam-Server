@@ -21,10 +21,6 @@ __decorate([
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
-], Exception.prototype, "sessionId", void 0);
-__decorate([
-    (0, class_transformer_1.Expose)(),
-    __metadata("design:type", Number)
 ], Exception.prototype, "date", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
@@ -42,4 +38,8 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], Exception.prototype, "message", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String)
+], Exception.prototype, "metadata", void 0);
 //# sourceMappingURL=exception.entity.js.map

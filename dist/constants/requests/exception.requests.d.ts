@@ -1,11 +1,11 @@
 import { PaginatedRequest } from '../models/pagination.models';
 export declare class CreateExceptionRequest {
-    sessionId: string;
-    date: number;
+    date: string;
     method: string;
     url: string;
     code: number;
     message?: string;
+    metadata?: string;
 }
 export declare class GetExceptionsRequest extends PaginatedRequest {
     sessionId?: string;

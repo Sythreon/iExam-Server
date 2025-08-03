@@ -12,12 +12,12 @@ type ExceptionProps = SchemaProps<Exception>;
 
 const schema: Record<keyof ExceptionProps, any> = {
     exceptionId: { type: String, default: Generator.GenerateObjectID },
-    sessionId: { type: String },
     method: { type: String },
     url: { type: String },
     code: { type: Number, default: HttpStatus.INTERNAL_SERVER_ERROR },
     message: { type: String },
-    date: { type: Number, default: Date.now() }
+    metadata: { type: String },
+    date: { type: String, default: new Date().toISOString() }
 }
 
 export const ExceptionSchema: Schema = ApplyExceptionMiddleware(new Schema(schema));

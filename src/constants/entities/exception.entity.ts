@@ -6,10 +6,7 @@ export class Exception {
     exceptionId: string;
 
     @Expose()
-    sessionId: string;
-
-    @Expose()
-    date: number;
+    date: string;
 
     @Expose()
     method: string;
@@ -22,6 +19,9 @@ export class Exception {
 
     @Expose()
     message: string;
+
+    @Expose()
+    metadata: string;
 
     session?: Session;
 }

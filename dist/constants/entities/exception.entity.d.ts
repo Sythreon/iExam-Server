@@ -1,11 +1,11 @@
 import { Session } from './session.entity';
 export declare class Exception {
     exceptionId: string;
-    sessionId: string;
-    date: number;
+    date: string;
     method: string;
     url: string;
     code: number;
     message: string;
+    metadata: string;
     session?: Session;
 }

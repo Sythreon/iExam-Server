@@ -18,13 +18,8 @@ class CreateExceptionRequest {
 exports.CreateExceptionRequest = CreateExceptionRequest;
 __decorate([
     (0, class_transformer_1.Expose)(),
-    (0, swagger_1.ApiProperty)({ example: "1234567" }),
+    (0, swagger_1.ApiProperty)({ example: "03-05-2001" }),
     __metadata("design:type", String)
-], CreateExceptionRequest.prototype, "sessionId", void 0);
-__decorate([
-    (0, class_transformer_1.Expose)(),
-    (0, swagger_1.ApiProperty)({ example: 1234567890 }),
-    __metadata("design:type", Number)
 ], CreateExceptionRequest.prototype, "date", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
@@ -46,6 +41,11 @@ __decorate([
     (0, swagger_1.ApiProperty)({ example: "Failed to create session." }),
     __metadata("design:type", String)
 ], CreateExceptionRequest.prototype, "message", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    (0, swagger_1.ApiProperty)({ example: "{ sessionId: '1234567' }" }),
+    __metadata("design:type", String)
+], CreateExceptionRequest.prototype, "metadata", void 0);
 class GetExceptionsRequest extends pagination_models_1.PaginatedRequest {
 }
 exports.GetExceptionsRequest = GetExceptionsRequest;

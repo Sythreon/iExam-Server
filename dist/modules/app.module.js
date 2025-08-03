@@ -12,14 +12,14 @@ const appConfig_module_1 = require("./appConfig.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const question_controller_1 = require("../controllers/question.controller");
 const answer_controller_1 = require("../controllers/answer.controller");
-const question_repository_1 = require("../repositories/question.repository");
-const answer_repository_1 = require("../repositories/answer.repository");
-const database_1 = require("../data/database/database");
-const mongo_access_1 = require("../data/access/mongo.access");
 const session_controller_1 = require("../controllers/session.controller");
 const exception_controller_1 = require("../controllers/exception.controller");
+const question_repository_1 = require("../repositories/question.repository");
+const answer_repository_1 = require("../repositories/answer.repository");
 const session_repository_1 = require("../repositories/session.repository");
 const exception_repository_1 = require("../repositories/exception.repository");
+const database_1 = require("../data/database/database");
+const mongo_access_1 = require("../data/access/mongo.access");
 let AppModule = class AppModule {
     configure(consumer) { }
     async onApplicationBootstrap() {

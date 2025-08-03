@@ -9,12 +9,12 @@ const exception_middleware_1 = require("../middlewares/exception.middleware");
 const common_1 = require("@nestjs/common");
 const schema = {
     exceptionId: { type: String, default: generator_util_1.Generator.GenerateObjectID },
-    sessionId: { type: String },
     method: { type: String },
     url: { type: String },
     code: { type: Number, default: common_1.HttpStatus.INTERNAL_SERVER_ERROR },
     message: { type: String },
-    date: { type: Number, default: Date.now() }
+    metadata: { type: String },
+    date: { type: String, default: new Date().toISOString() }
 };
 exports.ExceptionSchema = (0, exception_middleware_1.ApplyExceptionMiddleware)(new mongoose_1.Schema(schema));
 ;
