@@ -11,7 +11,7 @@ async function bootstrap() {
   app.enableCors();
 
   const config = new DocumentBuilder()
-    .setTitle('iExam-Server')
+    .setTitle('iExam Server')
     .setDescription('iExam Server APIs')
     .setVersion('v1')
     .build();

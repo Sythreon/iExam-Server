@@ -9,7 +9,7 @@ async function bootstrap() {
     app.useGlobalPipes(new common_1.ValidationPipe());
     app.enableCors();
     const config = new swagger_1.DocumentBuilder()
-        .setTitle('iExam-Server')
+        .setTitle('iExam Server')
         .setDescription('iExam Server APIs')
         .setVersion('v1')
         .build();

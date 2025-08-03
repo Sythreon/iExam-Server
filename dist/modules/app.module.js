@@ -9,19 +9,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const appConfig_module_1 = require("./appConfig.module");
+const mongoose_1 = require("@nestjs/mongoose");
+const question_controller_1 = require("../controllers/question.controller");
+const question_repository_1 = require("../repositories/question.repository");
+const database_1 = require("../data/database/database");
+const mongo_access_1 = require("../data/access/mongo.access");
 let AppModule = class AppModule {
     configure(consumer) { }
-    async onApplicationBootstrap() { }
+    async onApplicationBootstrap() {
+        mongo_access_1.MongooseAccess.connect();
+    }
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            appConfig_module_1.AppConfigurationModule
+            appConfig_module_1.AppConfigurationModule,
+            mongoose_1.MongooseModule.forRoot(process.env.MONGODB_DB_URI),
         ],
-        controllers: [],
+        controllers: [
+            question_controller_1.QuestionController
+        ],
         providers: [
-            common_1.ValidationPipe
+            common_1.ValidationPipe,
+            question_repository_1.QuestionRepository,
+            database_1.Database
         ]
     })
 ], AppModule);
