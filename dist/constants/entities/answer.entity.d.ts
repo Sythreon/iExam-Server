@@ -1,6 +1,6 @@
 import { Question } from './question.entity';
 export declare class Answer {
-    asnwerId: string;
+    answerId: string;
     questionId: string;
     sessionId: string;
     chosenOption: string;

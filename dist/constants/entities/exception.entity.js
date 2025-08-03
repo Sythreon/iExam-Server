@@ -21,7 +21,7 @@ __decorate([
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
-], Exception.prototype, "userId", void 0);
+], Exception.prototype, "sessionId", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)

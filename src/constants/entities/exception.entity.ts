@@ -6,7 +6,7 @@ export class Exception {
     exceptionId: string;
 
     @Expose()
-    userId: string;
+    sessionId: string;
 
     @Expose()
     date: number;

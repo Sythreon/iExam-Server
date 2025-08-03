@@ -1,10 +1,10 @@
 import { Answer } from './answer.entity';
 export declare class Session {
     sessionId: string;
-    progress: number;
     questionSeed: number;
     optionSeed: number;
-    score: number;
+    progress: number;
+    finalScore: number;
     startTime: number;
     endTime: number;
     status: string;

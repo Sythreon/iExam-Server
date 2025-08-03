@@ -6,16 +6,16 @@ export class Session {
     sessionId: string;
 
     @Expose()
-    progress: number;
-
-    @Expose()
     questionSeed: number;
 
     @Expose()
     optionSeed: number;
 
     @Expose()
-    score: number;
+    progress: number;
+
+    @Expose()
+    finalScore: number;
 
     @Expose()
     startTime: number;

@@ -17,7 +17,7 @@ exports.Answer = Answer;
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
-], Answer.prototype, "asnwerId", void 0);
+], Answer.prototype, "answerId", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)

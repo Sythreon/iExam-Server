@@ -3,7 +3,7 @@ import { Question } from './question.entity';
 
 export class Answer {
     @Expose()
-    asnwerId: string;
+    answerId: string;
 
     @Expose()
     questionId: string;

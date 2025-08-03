@@ -21,10 +21,6 @@ __decorate([
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
-], Session.prototype, "progress", void 0);
-__decorate([
-    (0, class_transformer_1.Expose)(),
-    __metadata("design:type", Number)
 ], Session.prototype, "questionSeed", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
@@ -33,7 +29,11 @@ __decorate([
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
-], Session.prototype, "score", void 0);
+], Session.prototype, "progress", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", Number)
+], Session.prototype, "finalScore", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
