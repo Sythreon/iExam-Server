@@ -26,7 +26,7 @@ let Database = class Database {
         const numericPageSize = (0, lodash_1.toNumber)(pagination?.pageSize ?? 999);
         const skip = (numericPage - 1) * numericPageSize;
         const data = await this.db.find({ ...filters, isDeleted: { $ne: true } }).sort({ dateCreated: -1, ...sorting }).skip(skip).limit(numericPageSize).lean().exec();
-        const total = await this.db.countDocuments(filters);
+        const total = await this.db.countDocuments({ ...filters, isDeleted: { $ne: true } });
         return {
             data: data,
             pagination: {

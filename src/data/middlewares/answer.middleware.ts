@@ -6,7 +6,7 @@ export function ApplyAnswerMiddleware(schema: Schema): Schema {
         localField: 'questionId',
         foreignField: 'questionId',
         justOne: true,
-        select: 'questionId content correctAnswer options'
+        select: 'questionId content correctAnswer choices'
     });
 
     schema.set('toObject', { virtuals: true });

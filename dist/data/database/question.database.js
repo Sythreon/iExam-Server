@@ -10,7 +10,7 @@ const schema = {
     questionId: { type: String, default: generator_util_1.Generator.GenerateObjectID },
     content: { type: String },
     correctAnswer: { type: String },
-    options: { type: [String] },
+    choices: { type: [String] },
     dateCreated: { type: Number, default: Date.now },
     isDeleted: { type: Boolean, default: false }
 };

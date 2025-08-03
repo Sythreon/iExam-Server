@@ -30,7 +30,7 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     (0, swagger_1.ApiProperty)({ example: ["Rome", "Paris", "London", "Marseille", "Lyon"] }),
     __metadata("design:type", Array)
-], CreateQuestionRequest.prototype, "options", void 0);
+], CreateQuestionRequest.prototype, "choices", void 0);
 class GetQuestionsRequest extends pagination_models_1.PaginatedRequest {
 }
 exports.GetQuestionsRequest = GetQuestionsRequest;
@@ -61,5 +61,5 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     (0, swagger_1.ApiProperty)({ example: ["Rome", "Paris", "London", "Marseille", "Lyon"] }),
     __metadata("design:type", Array)
-], UpdateQuestionRequest.prototype, "options", void 0);
+], UpdateQuestionRequest.prototype, "choices", void 0);
 //# sourceMappingURL=question.requests.js.map

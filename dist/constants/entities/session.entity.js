@@ -25,7 +25,7 @@ __decorate([
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
-], Session.prototype, "optionSeed", void 0);
+], Session.prototype, "choiceSeed", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)

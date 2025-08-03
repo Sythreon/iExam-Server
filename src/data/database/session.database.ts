@@ -13,10 +13,10 @@ type SessionProps = SchemaProps<Session>;
 const schema: Record<keyof SessionProps, any> = {
     sessionId: { type: String, default: Generator.GenerateObjectID },
     questionSeed: { type: Number },
-    optionSeed: { type: Number },
+    choiceSeed: { type: Number },
     numberOfQuestions: { type: Number, default: 10 },
     durationInMinutes: { type: Number, default: 10 },
-    progress: { type: Number, default: 0 },
+    progress: { type: Number, default: 1 },
     finalScore: { type: Number, default: 0 },
     startTime: { type: Number, default: Date.now() },
     endTime: { type: Number, default: Date.now() + 60 * 10 * 1000 }, // Default of 10 minutes.

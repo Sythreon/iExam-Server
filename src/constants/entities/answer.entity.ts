@@ -12,7 +12,7 @@ export class Answer {
     sessionId: string;
 
     @Expose()
-    chosenOption: string;
+    selectedChoice: string;
 
     @Expose()
     dateCreated: number;

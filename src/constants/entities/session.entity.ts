@@ -9,7 +9,7 @@ export class Session {
     questionSeed: number;
 
     @Expose()
-    optionSeed: number;
+    choiceSeed: number;
 
     @Expose()
     numberOfQuestions: number;

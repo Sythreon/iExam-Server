@@ -7,7 +7,7 @@ function ApplyAnswerMiddleware(schema) {
         localField: 'questionId',
         foreignField: 'questionId',
         justOne: true,
-        select: 'questionId content correctAnswer options'
+        select: 'questionId content correctAnswer choices'
     });
     schema.set('toObject', { virtuals: true });
     schema.set('toJSON', { virtuals: true });

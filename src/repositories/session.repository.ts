@@ -4,7 +4,7 @@ import { SessionDataAgent } from 'src/data/database/session.database';
 import { CreateSessionRequest, GetSessionsRequest, UpdateSessionRequest } from '../constants/requests/session.requests';
 import { IExamResponse } from '../helpers/response.helper';
 import { Mapper } from '../utilities/mapper.util';
-import { Generator } from 'src/utilities/generator.util';
+import { SessionHelper } from 'src/helpers/session.helper';
 
 @Injectable()
 export class SessionRepository {
@@ -14,6 +14,9 @@ export class SessionRepository {
 
     static async CreateSession(data: CreateSessionRequest): Promise<IExamResponse<Session>> {
         const session: Session = Mapper.map(data, Session);
+
+        session.questionSeed = SessionHelper.generateSeed();
+        session.choiceSeed = SessionHelper.generateSeed();
 
         const newSession = await SessionDataAgent.Create(session);
 

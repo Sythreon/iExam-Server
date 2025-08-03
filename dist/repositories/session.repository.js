@@ -15,11 +15,14 @@ const session_entity_1 = require("../constants/entities/session.entity");
 const session_database_1 = require("../data/database/session.database");
 const response_helper_1 = require("../helpers/response.helper");
 const mapper_util_1 = require("../utilities/mapper.util");
+const session_helper_1 = require("../helpers/session.helper");
 let SessionRepository = class SessionRepository {
     constructor() {
     }
     static async CreateSession(data) {
         const session = mapper_util_1.Mapper.map(data, session_entity_1.Session);
+        session.questionSeed = session_helper_1.SessionHelper.generateSeed();
+        session.choiceSeed = session_helper_1.SessionHelper.generateSeed();
         const newSession = await session_database_1.SessionDataAgent.Create(session);
         return response_helper_1.IExamResponse.Create({ data: newSession, message: "Session created successfully." });
     }

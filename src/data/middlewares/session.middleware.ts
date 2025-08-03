@@ -6,7 +6,7 @@ export function ApplySessionMiddleware(schema: Schema): Schema {
         localField: 'sessionId',
         foreignField: 'sessionId',
         justOne: false,
-        select: 'answerId questionId sessionId chosenOption question'
+        select: 'answerId questionId sessionId selectedChoice question'
     });
 
     schema.set('toObject', { virtuals: true });

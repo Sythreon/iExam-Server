@@ -14,10 +14,12 @@ const question_controller_1 = require("../controllers/question.controller");
 const answer_controller_1 = require("../controllers/answer.controller");
 const session_controller_1 = require("../controllers/session.controller");
 const exception_controller_1 = require("../controllers/exception.controller");
+const exam_controller_1 = require("../controllers/exam.controller");
 const question_repository_1 = require("../repositories/question.repository");
 const answer_repository_1 = require("../repositories/answer.repository");
 const session_repository_1 = require("../repositories/session.repository");
 const exception_repository_1 = require("../repositories/exception.repository");
+const exam_repository_1 = require("../repositories/exam.repository");
 const database_1 = require("../data/database/database");
 const mongo_access_1 = require("../data/access/mongo.access");
 let AppModule = class AppModule {
@@ -34,6 +36,7 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forRoot(process.env.MONGODB_DB_URI),
         ],
         controllers: [
+            exam_controller_1.ExamController,
             question_controller_1.QuestionController,
             answer_controller_1.AnswerController,
             session_controller_1.SessionController,
@@ -41,6 +44,7 @@ exports.AppModule = AppModule = __decorate([
         ],
         providers: [
             common_1.ValidationPipe,
+            exam_repository_1.ExamRepository,
             question_repository_1.QuestionRepository,
             answer_repository_1.AnswerRepository,
             session_repository_1.SessionRepository,

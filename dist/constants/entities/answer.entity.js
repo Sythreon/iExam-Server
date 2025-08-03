@@ -29,7 +29,7 @@ __decorate([
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
-], Answer.prototype, "chosenOption", void 0);
+], Answer.prototype, "selectedChoice", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)

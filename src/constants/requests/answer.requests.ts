@@ -14,7 +14,7 @@ export class CreateAnswerRequest {
 
     @Expose()
     @ApiProperty({ example: AnswerChoiceEnum.A })
-    chosenOption: string;
+    selectedChoice: string;
 }
 
 export class GetAnswersRequest extends PaginatedRequest {
@@ -30,5 +30,5 @@ export class UpdateAnswerRequest {
 
     @Expose()
     @ApiProperty({ example: AnswerChoiceEnum.A })
-    chosenOption?: string;
+    selectedChoice?: string;
 }

@@ -13,7 +13,7 @@ const schema: Record<keyof QuestionProps, any> = {
     questionId: { type: String, default: Generator.GenerateObjectID },
     content: { type: String },
     correctAnswer: { type: String },
-    options: { type: [String] },
+    choices: { type: [String] },
     dateCreated: { type: Number, default: Date.now },
     isDeleted: { type: Boolean, default: false }
 }

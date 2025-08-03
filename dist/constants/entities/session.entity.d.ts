@@ -2,7 +2,7 @@ import { Answer } from './answer.entity';
 export declare class Session {
     sessionId: string;
     questionSeed: number;
-    optionSeed: number;
+    choiceSeed: number;
     numberOfQuestions: number;
     durationInMinutes: number;
     progress: number;

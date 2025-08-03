@@ -13,7 +13,7 @@ export class CreateQuestionRequest {
 
     @Expose()
     @ApiProperty({ example: ["Rome", "Paris", "London", "Marseille", "Lyon"] })
-    options: string[];
+    choices: string[];
 }
 
 export class GetQuestionsRequest extends PaginatedRequest {
@@ -37,5 +37,5 @@ export class UpdateQuestionRequest {
 
     @Expose()
     @ApiProperty({ example: ["Rome", "Paris", "London", "Marseille", "Lyon"] })
-    options?: string[];
+    choices?: string[];
 }

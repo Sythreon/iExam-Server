@@ -6,7 +6,7 @@ export function ApplyExceptionMiddleware(schema: Schema): Schema {
         localField: 'sessionId',
         foreignField: 'sessionId',
         justOne: true,
-        select: 'sessionId progress questionSeed optionSeed finalScore startTime endTime status answers'
+        select: 'sessionId progress questionSeed choiceSeed finalScore startTime endTime status answers'
     });
 
     schema.set('toObject', { virtuals: true });

@@ -3,7 +3,7 @@ export declare class Answer {
     answerId: string;
     questionId: string;
     sessionId: string;
-    chosenOption: string;
+    selectedChoice: string;
     dateCreated: number;
     isDeleted: boolean;
     question?: Question;

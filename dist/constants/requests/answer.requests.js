@@ -31,7 +31,7 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     (0, swagger_1.ApiProperty)({ example: answer_enums_1.AnswerChoiceEnum.A }),
     __metadata("design:type", String)
-], CreateAnswerRequest.prototype, "chosenOption", void 0);
+], CreateAnswerRequest.prototype, "selectedChoice", void 0);
 class GetAnswersRequest extends pagination_models_1.PaginatedRequest {
 }
 exports.GetAnswersRequest = GetAnswersRequest;
@@ -52,5 +52,5 @@ __decorate([
     (0, class_transformer_1.Expose)(),
     (0, swagger_1.ApiProperty)({ example: answer_enums_1.AnswerChoiceEnum.A }),
     __metadata("design:type", String)
-], UpdateAnswerRequest.prototype, "chosenOption", void 0);
+], UpdateAnswerRequest.prototype, "selectedChoice", void 0);
 //# sourceMappingURL=answer.requests.js.map

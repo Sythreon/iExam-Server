@@ -11,7 +11,7 @@ export class Question {
     correctAnswer: string;
 
     @Expose()
-    options: string[];
+    choices: string[];
 
     @Expose()
     dateCreated: number;
