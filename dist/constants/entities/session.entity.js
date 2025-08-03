@@ -29,6 +29,14 @@ __decorate([
 __decorate([
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
+], Session.prototype, "numberOfQuestions", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", Number)
+], Session.prototype, "durationInMinutes", void 0);
+__decorate([
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", Number)
 ], Session.prototype, "progress", void 0);
 __decorate([
     (0, class_transformer_1.Expose)(),

@@ -12,6 +12,12 @@ export class Session {
     optionSeed: number;
 
     @Expose()
+    numberOfQuestions: number;
+
+    @Expose()
+    durationInMinutes: number;
+
+    @Expose()
     progress: number;
 
     @Expose()

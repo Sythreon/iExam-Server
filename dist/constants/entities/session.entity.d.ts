@@ -3,6 +3,8 @@ export declare class Session {
     sessionId: string;
     questionSeed: number;
     optionSeed: number;
+    numberOfQuestions: number;
+    durationInMinutes: number;
     progress: number;
     finalScore: number;
     startTime: number;
