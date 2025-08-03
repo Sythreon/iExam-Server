@@ -40,7 +40,14 @@ export class QuestionRepository {
     static async GetQuestions(filters: GetQuestionsRequest): Promise<IExamResponse<Question[]>> {
         const { page, pageSize, ...query } = filters;
 
-        const questions = await QuestionDataAgent.Get(query, { page, pageSize });
+        const queries: any = query;
+        
+        if (query.content) {
+            const regex = new RegExp(query.content, 'i');
+            queries.content = { $regex: regex }
+        }
+
+        const questions = await QuestionDataAgent.Get(queries, { page, pageSize });
 
         return IExamResponse.Fetch({
             data: questions.data,

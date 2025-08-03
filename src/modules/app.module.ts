@@ -1,6 +1,5 @@
 import { MiddlewareConsumer, Module, ValidationPipe } from '@nestjs/common';
 import { AppConfigurationModule } from './appConfig.module';
-import { ScheduleModule, SchedulerRegistry } from '@nestjs/schedule';
 import { MongooseModule } from '@nestjs/mongoose';
 
 // Controllers
@@ -20,13 +19,11 @@ import { ExamRepository } from 'src/repositories/exam.repository';
 // Database
 import { Database } from 'src/data/database/database';
 import { MongooseAccess } from 'src/data/access/mongo.access';
-import { CronService } from 'src/services/cron.service';
 
 @Module({
     imports: [
         AppConfigurationModule,
         MongooseModule.forRoot(process.env.MONGODB_DB_URI),
-        ScheduleModule.forRoot()
     ],
     controllers: [
         ExamController,
@@ -44,10 +41,7 @@ import { CronService } from 'src/services/cron.service';
         SessionRepository,
         ExceptionRepository,
 
-        Database,
-
-        CronService,
-        SchedulerRegistry
+        Database
     ]
 })
 export class AppModule {

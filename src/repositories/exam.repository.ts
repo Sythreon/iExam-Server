@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Session } from 'src/constants/entities/session.entity';
 import { SessionDataAgent } from 'src/data/database/session.database';
-import { CreateSessionRequest, GetSessionsRequest, UpdateSessionRequest } from '../constants/requests/session.requests';
 import { IExamResponse } from '../helpers/response.helper';
-import { Mapper } from '../utilities/mapper.util';
-import { SessionHelper } from 'src/helpers/session.helper';
 import { SessionRepository } from './session.repository';
 import { QuestionRepository } from './question.repository';
 import { ExamCompletedResponse, ExamOngoingResponse } from 'src/constants/responses/exam.responses';
@@ -14,6 +11,7 @@ import { AnswerRepository } from './answer.repository';
 import { QuestionDataAgent } from 'src/data/database/question.database';
 import { ExamResultEnum } from 'src/constants/enums/exam.enums';
 import { SessionStatusEnum } from 'src/constants/enums/session.enums';
+import { AnswerDataAgent } from 'src/data/database/answer.database';
 
 @Injectable()
 export class ExamRepository {
@@ -45,15 +43,24 @@ export class ExamRepository {
     static async Answer(data: ExamAnswerRequest): Promise<IExamResponse<ExamOngoingResponse | ExamCompletedResponse>> {
         const session = await SessionDataAgent.Find({ sessionId: data.sessionId });
         if (!session) return IExamResponse.Failure({ error: "Session not found." });
-        if (session.status === "COMPLETED") return IExamResponse.Failure({ error: "Session has already been completed." });
+
+        if (session.endTime < Date.now()) {
+            const result = await this.Complete(session);
+            return IExamResponse.Failure({ data: result.data, error: "Time limit exceeded. Exam has ended." });
+        }
 
         const currentQuestion = await QuestionDataAgent.Find({ questionId: data.questionId });
         if (!currentQuestion) return IExamResponse.Failure({ error: "Question not found." });
 
-        session.progress += 1;
+        const existingAnswer = await AnswerDataAgent.Find({ sessionId: session.sessionId, questionId: data.questionId });
+        if (existingAnswer) await AnswerRepository.UpdateAnswer({ ...existingAnswer, ...data });
+        else {
+            session.progress += 1;
+            await AnswerRepository.CreateAnswer(data);
+        }
+
         session.status = SessionStatusEnum.ONGOING;
 
-        await AnswerRepository.CreateAnswer(data);
         await SessionRepository.UpdateSession(session);
 
         if (session.progress === session.numberOfQuestions) return this.Complete(session);
@@ -85,7 +92,7 @@ export class ExamRepository {
 
         const { finalScore, remark } = ExamHelper.gradeAnswers(session, answers.data);
 
-        await SessionRepository.CompleteSession(session.sessionId, finalScore);
+        await SessionRepository.CompleteSession(session.sessionId, finalScore, session.status);
 
         const response: ExamCompletedResponse = {
             sessionId: session.sessionId,

@@ -61,8 +61,8 @@ export class SessionRepository {
         return IExamResponse.Success({ data: session, message: "Session fetched successfully." });
     }
 
-    static async CompleteSession(sessionId: string, finalScore: number): Promise<null> {
-        await SessionDataAgent.Update({ session: sessionId }, { finalScore, status: SessionStatusEnum.COMPLETED });
+    static async CompleteSession(sessionId: string, finalScore: number, status: string): Promise<null> {
+        await SessionDataAgent.Update({ session: sessionId }, { finalScore, status: status ?? SessionStatusEnum.COMPLETED });
         return null;
     }
 }

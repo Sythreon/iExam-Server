@@ -9,7 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const appConfig_module_1 = require("./appConfig.module");
-const schedule_1 = require("@nestjs/schedule");
 const mongoose_1 = require("@nestjs/mongoose");
 const question_controller_1 = require("../controllers/question.controller");
 const answer_controller_1 = require("../controllers/answer.controller");
@@ -23,7 +22,6 @@ const exception_repository_1 = require("../repositories/exception.repository");
 const exam_repository_1 = require("../repositories/exam.repository");
 const database_1 = require("../data/database/database");
 const mongo_access_1 = require("../data/access/mongo.access");
-const cron_service_1 = require("../services/cron.service");
 let AppModule = class AppModule {
     configure(consumer) { }
     async onApplicationBootstrap() {
@@ -36,7 +34,6 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             appConfig_module_1.AppConfigurationModule,
             mongoose_1.MongooseModule.forRoot(process.env.MONGODB_DB_URI),
-            schedule_1.ScheduleModule.forRoot()
         ],
         controllers: [
             exam_controller_1.ExamController,
@@ -52,9 +49,7 @@ exports.AppModule = AppModule = __decorate([
             answer_repository_1.AnswerRepository,
             session_repository_1.SessionRepository,
             exception_repository_1.ExceptionRepository,
-            database_1.Database,
-            cron_service_1.CronService,
-            schedule_1.SchedulerRegistry
+            database_1.Database
         ]
     })
 ], AppModule);

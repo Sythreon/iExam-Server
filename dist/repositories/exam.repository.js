@@ -20,6 +20,7 @@ const answer_repository_1 = require("./answer.repository");
 const question_database_1 = require("../data/database/question.database");
 const exam_enums_1 = require("../constants/enums/exam.enums");
 const session_enums_1 = require("../constants/enums/session.enums");
+const answer_database_1 = require("../data/database/answer.database");
 let ExamRepository = class ExamRepository {
     constructor() {
     }
@@ -43,14 +44,21 @@ let ExamRepository = class ExamRepository {
         const session = await session_database_1.SessionDataAgent.Find({ sessionId: data.sessionId });
         if (!session)
             return response_helper_1.IExamResponse.Failure({ error: "Session not found." });
-        if (session.status === "COMPLETED")
-            return response_helper_1.IExamResponse.Failure({ error: "Session has already been completed." });
+        if (session.endTime < Date.now()) {
+            const result = await this.Complete(session);
+            return response_helper_1.IExamResponse.Failure({ data: result.data, error: "Time limit exceeded. Exam has ended." });
+        }
         const currentQuestion = await question_database_1.QuestionDataAgent.Find({ questionId: data.questionId });
         if (!currentQuestion)
             return response_helper_1.IExamResponse.Failure({ error: "Question not found." });
-        session.progress += 1;
+        const existingAnswer = await answer_database_1.AnswerDataAgent.Find({ sessionId: session.sessionId, questionId: data.questionId });
+        if (existingAnswer)
+            await answer_repository_1.AnswerRepository.UpdateAnswer({ ...existingAnswer, ...data });
+        else {
+            session.progress += 1;
+            await answer_repository_1.AnswerRepository.CreateAnswer(data);
+        }
         session.status = session_enums_1.SessionStatusEnum.ONGOING;
-        await answer_repository_1.AnswerRepository.CreateAnswer(data);
         await session_repository_1.SessionRepository.UpdateSession(session);
         if (session.progress === session.numberOfQuestions)
             return this.Complete(session);
@@ -76,7 +84,7 @@ let ExamRepository = class ExamRepository {
             pageSize: 10
         });
         const { finalScore, remark } = exam_helper_1.ExamHelper.gradeAnswers(session, answers.data);
-        await session_repository_1.SessionRepository.CompleteSession(session.sessionId, finalScore);
+        await session_repository_1.SessionRepository.CompleteSession(session.sessionId, finalScore, session.status);
         const response = {
             sessionId: session.sessionId,
             finalScore: `${finalScore}%`,

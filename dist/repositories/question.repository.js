@@ -39,7 +39,12 @@ let QuestionRepository = class QuestionRepository {
     }
     static async GetQuestions(filters) {
         const { page, pageSize, ...query } = filters;
-        const questions = await question_database_1.QuestionDataAgent.Get(query, { page, pageSize });
+        const queries = query;
+        if (query.content) {
+            const regex = new RegExp(query.content, 'i');
+            queries.content = { $regex: regex };
+        }
+        const questions = await question_database_1.QuestionDataAgent.Get(queries, { page, pageSize });
         return response_helper_1.IExamResponse.Fetch({
             data: questions.data,
             pagination: questions.pagination,

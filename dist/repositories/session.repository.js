@@ -56,8 +56,8 @@ let SessionRepository = class SessionRepository {
             return response_helper_1.IExamResponse.Failure({ error: "Session not found." });
         return response_helper_1.IExamResponse.Success({ data: session, message: "Session fetched successfully." });
     }
-    static async CompleteSession(sessionId, finalScore) {
-        await session_database_1.SessionDataAgent.Update({ session: sessionId }, { finalScore, status: session_enums_1.SessionStatusEnum.COMPLETED });
+    static async CompleteSession(sessionId, finalScore, status) {
+        await session_database_1.SessionDataAgent.Update({ session: sessionId }, { finalScore, status: status ?? session_enums_1.SessionStatusEnum.COMPLETED });
         return null;
     }
 };
