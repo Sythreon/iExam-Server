@@ -18,14 +18,14 @@ let Database = class Database {
         return result;
     }
     async Find(filters) {
-        const result = await this.db.findOne(filters).lean().exec();
+        const result = await this.db.findOne({ ...filters, isDeleted: { $ne: true } }).lean().exec();
         return result;
     }
     async Get(filters, pagination, sorting) {
         const numericPage = (0, lodash_1.toNumber)(pagination?.page ?? 1);
         const numericPageSize = (0, lodash_1.toNumber)(pagination?.pageSize ?? 999);
         const skip = (numericPage - 1) * numericPageSize;
-        const data = await this.db.find(filters).sort({ dateCreated: -1, ...sorting }).skip(skip).limit(numericPageSize).lean().exec();
+        const data = await this.db.find({ ...filters, isDeleted: { $ne: true } }).sort({ dateCreated: -1, ...sorting }).skip(skip).limit(numericPageSize).lean().exec();
         const total = await this.db.countDocuments(filters);
         return {
             data: data,

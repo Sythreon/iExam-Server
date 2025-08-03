@@ -11,7 +11,9 @@ const common_1 = require("@nestjs/common");
 const appConfig_module_1 = require("./appConfig.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const question_controller_1 = require("../controllers/question.controller");
+const answer_controller_1 = require("../controllers/answer.controller");
 const question_repository_1 = require("../repositories/question.repository");
+const answer_repository_1 = require("../repositories/answer.repository");
 const database_1 = require("../data/database/database");
 const mongo_access_1 = require("../data/access/mongo.access");
 let AppModule = class AppModule {
@@ -28,11 +30,13 @@ exports.AppModule = AppModule = __decorate([
             mongoose_1.MongooseModule.forRoot(process.env.MONGODB_DB_URI),
         ],
         controllers: [
-            question_controller_1.QuestionController
+            question_controller_1.QuestionController,
+            answer_controller_1.AnswerController
         ],
         providers: [
             common_1.ValidationPipe,
             question_repository_1.QuestionRepository,
+            answer_repository_1.AnswerRepository,
             database_1.Database
         ]
     })

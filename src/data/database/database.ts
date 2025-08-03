@@ -17,7 +17,7 @@ export class Database<T> {
   }
 
   async Find(filters: Partial<T> | Record<any, any>): Promise<T> {
-    const result = await this.db.findOne(filters).lean().exec();
+    const result = await this.db.findOne({ ...filters, isDeleted: { $ne: true } }).lean().exec();
     return result as T;
   }
 
@@ -26,7 +26,7 @@ export class Database<T> {
     const numericPageSize = toNumber(pagination?.pageSize ?? 999);
     const skip = (numericPage - 1) * numericPageSize;
 
-    const data = await this.db.find(filters).sort({ dateCreated: -1, ...sorting }).skip(skip).limit(numericPageSize).lean().exec();
+    const data = await this.db.find({ ...filters, isDeleted: { $ne: true } }).sort({ dateCreated: -1, ...sorting }).skip(skip).limit(numericPageSize).lean().exec();
     const total = await this.db.countDocuments(filters);
 
     return {
