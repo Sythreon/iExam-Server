@@ -13,6 +13,10 @@ import { AnswerRepository } from 'src/repositories/answer.repository';
 // Database
 import { Database } from 'src/data/database/database';
 import { MongooseAccess } from 'src/data/access/mongo.access';
+import { SessionController } from 'src/controllers/session.controller';
+import { ExceptionController } from 'src/controllers/exception.controller';
+import { SessionRepository } from 'src/repositories/session.repository';
+import { ExceptionRepository } from 'src/repositories/exception.repository';
 
 @Module({
     imports: [
@@ -21,13 +25,17 @@ import { MongooseAccess } from 'src/data/access/mongo.access';
     ],
     controllers: [
         QuestionController,
-        AnswerController
+        AnswerController,
+        SessionController,
+        ExceptionController
     ],
     providers: [
         ValidationPipe,
 
         QuestionRepository,
         AnswerRepository,
+        SessionRepository,
+        ExceptionRepository,
 
         Database
     ]

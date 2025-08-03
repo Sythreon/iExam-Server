@@ -16,6 +16,10 @@ const question_repository_1 = require("../repositories/question.repository");
 const answer_repository_1 = require("../repositories/answer.repository");
 const database_1 = require("../data/database/database");
 const mongo_access_1 = require("../data/access/mongo.access");
+const session_controller_1 = require("../controllers/session.controller");
+const exception_controller_1 = require("../controllers/exception.controller");
+const session_repository_1 = require("../repositories/session.repository");
+const exception_repository_1 = require("../repositories/exception.repository");
 let AppModule = class AppModule {
     configure(consumer) { }
     async onApplicationBootstrap() {
@@ -31,12 +35,16 @@ exports.AppModule = AppModule = __decorate([
         ],
         controllers: [
             question_controller_1.QuestionController,
-            answer_controller_1.AnswerController
+            answer_controller_1.AnswerController,
+            session_controller_1.SessionController,
+            exception_controller_1.ExceptionController
         ],
         providers: [
             common_1.ValidationPipe,
             question_repository_1.QuestionRepository,
             answer_repository_1.AnswerRepository,
+            session_repository_1.SessionRepository,
+            exception_repository_1.ExceptionRepository,
             database_1.Database
         ]
     })
